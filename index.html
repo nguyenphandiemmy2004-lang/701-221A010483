@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đề thi kết thúc HP</title>
+    <title>Bài tập 1: Danh sách sản phẩm</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <nav class="navbar">
         <a href="index.html">Trang Chủ</a>
         <a href="about.html">Phần 1: Lý Thuyết</a>
-        <a href="baitap01.html">Bài Tập 1 (Sản phẩm)</a>
+        <a href="baitap01.html" class="active">Bài Tập 1 (Sản phẩm)</a>
         <a href="baitap02.html">Bài Tập 2 (Form Đăng Ký)</a>
         <a href="baitap03.html">Bài Tập 3 (Countdown)</a>
         <a href="baitap18.html">Bài Tập 18</a>
         <a href="baitap19.html">Bài Tập 19</a>
         <a href="contact.html">Thông Tin Điểm Danh</a>
     </nav>
+
     <main class="container">
-        <h1>Chào mừng đến với bài thi học phần</h1>
-        <p>Vui lòng chọn các bài tập trên thanh Menu để kiểm tra chức năng.</p>
+        <h2>Danh Sách Sản Phẩm</h2>
+        
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Nhập tên sản phẩm cần tìm...">
+        </div>
+
+        <div id="product-list" class="product-grid"></div>
     </main>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
