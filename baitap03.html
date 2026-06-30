@@ -1,1 +1,27 @@
+let timeLeft = 10 * 60; // 10 phút tính bằng giây
+const timerElement = document.getElementById('timer');
 
+if (timerElement) {
+    const countdown = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+
+        // Định dạng MM:SS
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        timerElement.textContent = `${minutes}:${seconds}`;
+
+        // Thêm hiệu ứng Animation khi dưới 1 phút (60 giây)
+        if (timeLeft <= 60) {
+            timerElement.classList.add('warning-animation');
+        }
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown); // Tránh Memory Leak
+            alert("Hết giờ làm bài!");
+        }
+
+        timeLeft--;
+    }, 1000);
+}
