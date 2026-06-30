@@ -226,3 +226,41 @@ body {
     color: #2f855a;
     border: 1px solid #c6f6d5;
 }
+
+/* =============================================
+   BÀI TẬP 3: ĐỒNG HỒ ĐẾM NGƯỢC (COUNTDOWN)
+   =============================================*/
+.countdown-wrapper {
+    text-align: center;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.countdown-wrapper h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+#timer {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #2c3e50;
+    font-family: 'Courier New', Courier, monospace; /* Giúp các con số không bị giật khi nhảy số */
+    margin-bottom: 10px;
+    transition: color 0.5s ease;
+}
+
+/* Animation nhấp nháy khẩn cấp đỏ khi thời gian dưới 1 phút */
+.warning-animation {
+    color: #e74c3c !important;
+    animation: blink-danger 1s infinite;
+}
+
+@keyframes blink-danger {
+    50% { opacity: 0.4; }
+}
