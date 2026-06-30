@@ -1,1 +1,27 @@
+document.getElementById('register-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const agree = document.getElementById('agree').checked;
+    const msg = document.getElementById('form-msg');
 
+    // Regex kiểm tra Email & Mật khẩu (Ít nhất 8 ký tự, có chữ hoa, chữ thường, số)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+    if (!name || !emailRegex.test(email) || !passRegex.test(password) || !agree) {
+        msg.textContent = "Vui lòng kiểm tra lại thông tin hợp lệ và đồng ý điều khoản!";
+        msg.className = "error-msg";
+        return;
+    }
+
+    // Lưu LocalStorage dạng Object
+    const user = { name, email, password };
+    localStorage.setItem('registeredUser', JSON.stringify(user));
+
+    msg.textContent = "Đăng ký thành công! Dữ liệu đã lưu cục bộ.";
+    msg.className = "success-msg";
+    this.reset();
+});
