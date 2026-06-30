@@ -1,27 +1,33 @@
-let timeLeft = 10 * 60; // 10 phút tính bằng giây
-const timerElement = document.getElementById('timer');
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập 3: Đồng hồ đếm ngược</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html">Trang Chủ</a>
+        <a href="about.html">Phần 1: Lý Thuyết</a>
+        <a href="baitap01.html">Bài Tập 1 (Sản phẩm)</a>
+        <a href="baitap02.html">Bài Tập 2 (Form Đăng Ký)</a>
+        <a href="baitap03.html" class="active">Bài Tập 3 (Countdown)</a>
+        <a href="baitap18.html">Bài Tập 18</a>
+        <a href="baitap19.html">Bài Tập 19</a>
+        <a href="contact.html">Thông Tin Điểm Danh</a>
+    </nav>
 
-if (timerElement) {
-    const countdown = setInterval(() => {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
+    <main class="container">
+        <div class="countdown-wrapper">
+            <h2>Thời Gian Làm Bài Còn Lại</h2>
+            
+            <div id="timer">10:00</div>
+            
+            <p class="timer-status">Hệ thống đang đếm ngược thời gian thực...</p>
+        </div>
+    </main>
 
-        // Định dạng MM:SS
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
-
-        timerElement.textContent = `${minutes}:${seconds}`;
-
-        // Thêm hiệu ứng Animation khi dưới 1 phút (60 giây)
-        if (timeLeft <= 60) {
-            timerElement.classList.add('warning-animation');
-        }
-
-        if (timeLeft <= 0) {
-            clearInterval(countdown); // Tránh Memory Leak
-            alert("Hết giờ làm bài!");
-        }
-
-        timeLeft--;
-    }, 1000);
-}
+    <script src="js/script.js"></script>
+</body>
+</html>
