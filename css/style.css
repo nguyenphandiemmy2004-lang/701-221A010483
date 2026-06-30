@@ -1,23 +1,145 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
-body { background-color: #f4f6f9; color: #333; padding: 20px; }
-.container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+/* ==========================================================================
+   1. RESET SYSTEM & CHUẨN HÓA LAYOUT
+   ========================================================================== */
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Segoe UI', Arial, sans-serif; 
+}
+body { 
+    background-color: #f4f6f9; 
+    color: #333; 
+    padding: 20px; 
+}
+.container { 
+    max-width: 1200px; 
+    margin: auto; 
+    background: white; 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
 
-/* Navbar Responsive với Flexbox */
-.navbar { display: flex; flex-wrap: wrap; gap: 15px; background: #2c3e50; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
-.navbar a { color: white; text-decoration: none; font-weight: bold; padding: 8px 12px; }
-.navbar a:hover { background: #34495e; border-radius: 4px; }
+/* ==========================================================================
+   2. NAVBAR RESPONSIVE FLEXBOX (Dùng chung cho toàn bộ website)
+   ========================================================================== */
+.navbar { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 15px; 
+    background: #2c3e50; 
+    padding: 15px; 
+    border-radius: 5px; 
+    margin-bottom: 20px; 
+}
+.navbar a { 
+    color: white; 
+    text-decoration: none; 
+    font-weight: bold; 
+    padding: 8px 12px; 
+    border-radius: 4px;
+    transition: 0.3s ease;
+}
+.navbar a:hover, .navbar a.active { 
+    background: #1abc9c; 
+}
 
-/* Product List Responsive với Grid */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
-.product-item { background: #fff; padding: 15px; border: 1px solid #ddd; border-radius: 5px; text-align: center; }
+/* ==========================================================================
+   3. BÀI TẬP 1: KHUNG TÌM KIẾM & GRID SẢN PHẨM (Đã mix tối ưu)
+   ========================================================================== */
+.search-container { 
+    margin-bottom: 30px; 
+}
+#search-input { 
+    width: 100%; 
+    padding: 12px 20px; 
+    font-size: 16px; 
+    border: 2px solid #ddd; 
+    border-radius: 25px; 
+    outline: none; 
+    transition: 0.3s; 
+}
+#search-input:focus { 
+    border-color: #1abc9c; 
+    box-shadow: 0 0 8px rgba(26, 188, 156, 0.2); 
+}
 
-/* Form style */
-.form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
-.form-group input[type="text"], .form-group input[type="email"], .form-group input[type="password"] { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+/* Hiển thị Responsive với Grid */
+.product-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+    gap: 20px; 
+    margin-top: 20px; 
+}
+.product-item { 
+    background: #fff; 
+    padding: 20px; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    text-align: center; 
+    transition: 0.3s;
+}
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    border-color: #1abc9c;
+}
+.product-item h3 { 
+    font-size: 18px; 
+    margin-bottom: 12px; 
+    color: #2c3e50; 
+    min-height: 48px; 
+    display: -webkit-box; 
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden; 
+}
+.product-item .price { 
+    color: #e74c3c; 
+    font-weight: bold; 
+    font-size: 16px; 
+}
 
-/* Animation khẩn cấp cho Countdown */
-.warning-animation { color: red; animation: blink 1s infinite; font-size: 2rem; font-weight: bold; }
-@keyframes blink { 50% { opacity: 0.5; } }
+/* ==========================================================================
+   4. BÀI TẬP 2: FORM ĐĂNG KÝ (Giữ nguyên cấu trúc của bạn)
+   ========================================================================== */
+.form-group { 
+    margin-bottom: 15px; 
+    display: flex; 
+    flex-direction: column; 
+}
+.form-group input[type="text"], 
+.form-group input[type="email"], 
+.form-group input[type="password"] { 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+}
 
-.error-msg { color: red; font-weight: bold; }
-.success-msg { color: green; font-weight: bold; }
+/* ==========================================================================
+   5. BÀI TẬP 3: HIỆU ỨNG ĐẾM NGƯỢC COUNTDOWN
+   ========================================================================== */
+.warning-animation { 
+    color: red; 
+    animation: blink 1s infinite; 
+    font-size: 2rem; 
+    font-weight: bold; 
+}
+@keyframes blink { 
+    50% { opacity: 0.5; } 
+}
+
+/* Các class thông báo hệ thống */
+.error-msg { 
+    grid-column: 1 / -1; /* Đảm bảo thông báo lỗi dàn hàng ngang hết Grid */
+    color: red; 
+    font-weight: bold; 
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+}
+.success-msg { 
+    color: green; 
+    font-weight: bold; 
+}
