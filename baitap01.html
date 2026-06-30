@@ -1,1 +1,39 @@
+// Data sản phẩm mẫu
+const products = [
+    { id: 1, name: "Điện thoại iPhone 15", price: "22.000.000đ" },
+    { id: 2, name: "Laptop ASUS ROG", price: "35.000.000đ" },
+    { id: 3, name: "Tai nghe Sony WH-1000XM5", price: "6.500.000đ" },
+    { id: 4, name: "Bàn phím cơ Custom", price: "2.500.000đ" },
+    { id: 5, name: "Chuột Logitech G Pro X", price: "3.000.000đ" }
+];
 
+function renderProducts(data) {
+    const container = document.getElementById('product-list');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    if (data.length === 0) {
+        container.innerHTML = '<p class="error-msg">Không tìm thấy sản phẩm phù hợp!</p>';
+        return;
+    }
+
+    data.forEach(prod => {
+        const div = document.createElement('div');
+        div.className = 'product-item';
+        // Bảo mật Injection bằng cách gán text an toàn
+        div.innerHTML = `<h3></h3><p class="price"></p>`;
+        div.querySelector('h3').textContent = prod.name;
+        div.querySelector('.price').textContent = prod.price;
+        container.appendChild(div);
+    });
+}
+
+// Lắng nghe sự kiện tìm kiếm
+document.getElementById('search-input')?.addEventListener('input', function(e) {
+    const keyword = e.target.value.toLowerCase().trim();
+    const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
+    renderProducts(filtered);
+});
+
+// Chạy lần đầu khi load trang bài 1
+if(document.getElementById('product-list')) renderProducts(products);
