@@ -147,3 +147,51 @@ function showNotification(element, message, className) {
     element.textContent = message;
     element.className = className;
 }
+
+// ==========================================================================
+// BÀI TẬP 3: ĐỒNG HỒ ĐẾM NGƯỢC (COUNTDOWN TIMER)
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const timerElement = document.getElementById('timer');
+    
+    if (timerElement) {
+        let timeLeft = 10 * 60; // Thiết lập mốc 10 phút chuyển đổi ra giây (600 giây)
+        
+        // Quản lý biến Interval toàn cục trong phạm vi trang để dễ dàng xóa bỏ
+        const countdownInterval = setInterval(() => {
+            // Tính số phút và số giây còn lại từ tổng số giây
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+
+            // Chuẩn hóa định dạng hiển thị luôn có 2 chữ số (MM:SS)
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            // Cập nhật text hiển thị ra ngoài màn hình
+            timerElement.textContent = `${minutes}:${seconds}`;
+
+            // HIỆU ỨNG CẢNH BÁO: Khi thời gian dưới 1 phút (60 giây), tự động thêm class CSS nhấp nháy đỏ
+            if (timeLeft <= 60 && timeLeft > 0) {
+                timerElement.classList.add('warning-animation');
+            }
+            
+            // XỬ LÝ KHI HẾT GIỜ
+            if (timeLeft <= 0) {
+                /* LOGIC TƯ DUY TRÁNH MEMORY LEAK: 
+                   Bắt buộc phải gọi clearInterval ngay khi thời gian chạm mốc 0. 
+                   Nếu không xóa, trình duyệt sẽ tiếp tục lặp vô hạn hàm chạy ngầm này, 
+                   gây tốn tài nguyên RAM và CPU của thiết bị người dùng.
+                */
+                clearInterval(countdownInterval);
+                
+                // Loại bỏ hiệu ứng nhấp nháy đỏ khi đã kết thúc
+                timerElement.classList.remove('warning-animation');
+                
+                // Hiển thị modal alert thông báo hết giờ theo yêu cầu đề bài
+                alert("Hết thời gian làm bài! Hệ thống tự động khóa.");
+            }
+
+            timeLeft--; // Giảm đi 1 giây sau mỗi chu kỳ lặp
+        }, 1000); // Chu kỳ lặp 1000ms = 1 giây
+    }
+});
