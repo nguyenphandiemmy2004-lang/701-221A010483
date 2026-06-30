@@ -1,1 +1,23 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+body { background-color: #f4f6f9; color: #333; padding: 20px; }
+.container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
 
+/* Navbar Responsive với Flexbox */
+.navbar { display: flex; flex-wrap: wrap; gap: 15px; background: #2c3e50; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+.navbar a { color: white; text-decoration: none; font-weight: bold; padding: 8px 12px; }
+.navbar a:hover { background: #34495e; border-radius: 4px; }
+
+/* Product List Responsive với Grid */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+.product-item { background: #fff; padding: 15px; border: 1px solid #ddd; border-radius: 5px; text-align: center; }
+
+/* Form style */
+.form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
+.form-group input[type="text"], .form-group input[type="email"], .form-group input[type="password"] { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+
+/* Animation khẩn cấp cho Countdown */
+.warning-animation { color: red; animation: blink 1s infinite; font-size: 2rem; font-weight: bold; }
+@keyframes blink { 50% { opacity: 0.5; } }
+
+.error-msg { color: red; font-weight: bold; }
+.success-msg { color: green; font-weight: bold; }
