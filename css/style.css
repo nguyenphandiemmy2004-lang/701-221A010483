@@ -105,3 +105,124 @@ body {
     padding: 30px;
     font-style: italic;
 }
+
+/* =============================================
+   BÀI TẬP 2: ĐỊNH DẠNG FORM ĐĂNG KÝ RESPONSIVE
+   =============================================*/
+.form-wrapper {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.form-wrapper h2 {
+    margin-bottom: 25px;
+    color: #2c3e50;
+    text-align: center;
+    font-size: 24px;
+}
+
+/* Group các phần tử nhập liệu */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s border-color;
+}
+
+.form-group input:focus {
+    border-color: #1abc9c;
+}
+
+.form-group .hint {
+    color: #718096;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Khung Checkbox điều khoản */
+.form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.form-checkbox input[type="checkbox"] {
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+.form-checkbox label {
+    font-size: 14px;
+    color: #4a5568;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Nút Submit Đăng ký */
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: #1abc9c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #16a085;
+}
+
+/* Định dạng các vùng thông báo lỗi và thành công riêng cho form */
+#form-msg {
+    margin-bottom: 20px;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    display: none; /* Ẩn mặc định, chỉ hiện khi có text */
+    text-align: left;
+}
+
+#form-msg:not(:empty) {
+    display: block; /* Tự động hiện khi có nội dung chữ */
+}
+
+#form-msg.error-msg {
+    background-color: #fff5f5;
+    color: #c53030;
+    border: 1px solid #fed7d7;
+    font-style: normal;
+}
+
+#form-msg.success-msg {
+    background-color: #f0fff4;
+    color: #2f855a;
+    border: 1px solid #c6f6d5;
+}
