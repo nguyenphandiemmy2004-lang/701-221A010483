@@ -1,3 +1,6 @@
+//***********
+//BÀI TẬP 01
+//***********
 // Khởi tạo mảng dữ liệu gồm 5 sản phẩm mẫu
 const products = [
     { id: 1, name: "Điện thoại iPhone 15 Pro Max", price: "29.990.000đ" },
@@ -67,3 +70,80 @@ document.addEventListener('DOMContentLoaded', () => {
         renderProducts(products);
     }
 });
+
+// ==========================================
+//  BÀI TẬP 2: VALIDATE FORM & LOCALSTORAGE
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const registerForm = document.getElementById('register-form');
+    
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(e) {
+            // 1. Chặn hành vi tải lại trang mặc định của form khi submit
+            e.preventDefault();
+            
+            // 2. Lấy giá trị từ các trường input
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const agree = document.getElementById('agree').checked;
+            const msgContainer = document.getElementById('form-msg');
+
+            // Đặt lại thông báo cũ (nếu có)
+            msgContainer.textContent = '';
+            msgContainer.className = '';
+
+            // 3. Biểu thức chính quy (Regex) để kiểm tra tính hợp lệ
+            // Kiểm tra email chuẩn cấu trúc (abc@domain.com)
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            // Kiểm tra mật khẩu: tối thiểu 8 ký tự, 1 chữ hoa, 1 chữ thường, 1 số
+            const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+            // 4. Tiến hành Validate logic đầu vào
+            if (name === '') {
+                showNotification(msgContainer, 'Vui lòng điền họ và tên!', 'error-msg');
+                return;
+            }
+
+            if (!emailRegex.test(email)) {
+                showNotification(msgContainer, 'Địa chỉ Email không hợp lệ (ví dụ: name@gmail.com)!', 'error-msg');
+                return;
+            }
+
+            if (!passRegex.test(password)) {
+                showNotification(msgContainer, 'Mật khẩu yếu! Cần ít nhất 8 ký tự gồm chữ hoa, chữ thường và số.', 'error-msg');
+                return;
+            }
+
+            if (!agree) {
+                showNotification(msgContainer, 'Bạn phải tích chọn đồng ý với điều khoản dịch vụ!', 'error-msg');
+                return;
+            }
+
+            // 5. Nếu dữ liệu VALID -> Tiến hành đóng gói và lưu cục bộ (LocalStorage)
+            /* LOGIC TƯ DUY BẢO MẬT: 
+               LocalStorage lưu thông tin dạng văn bản thuần (Clear-text). Trong thực tế, 
+               mật khẩu phải được băm (hash) ở phía server chứ không bao giờ lưu trực tiếp thế này. 
+               Tuy nhiên theo yêu cầu đề bài, ta chuyển object sang chuỗi JSON và lưu cục bộ.
+            */
+            const userData = {
+                name: name,
+                email: email,
+                password: password // Lưu chuỗi thô để đáp ứng yêu cầu của đề bài thực hành
+            };
+
+            localStorage.setItem('registeredUser', JSON.stringify(userData));
+
+            // Hiển thị thông báo thành công và reset form
+            showNotification(msgContainer, 'Đăng ký thành công! Thông tin đã được lưu vào LocalStorage.', 'success-msg');
+            registerForm.reset();
+        });
+    }
+});
+
+// Hàm phụ bổ trợ hiển thị thông báo nhanh
+function showNotification(element, message, className) {
+    element.textContent = message;
+    element.className = className;
+}
