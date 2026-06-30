@@ -27,14 +27,66 @@
         <section class="theory-section">
             <h2>Câu 1 (10 điểm): Biến đổi Layout với position: absolute và position: relative</h2>
             <div class="answer-content">
-                <p><strong>Khác biệt cốt lõi:</strong> <code>position: relative</code> dịch chuyển dựa theo vị trí gốc và vẫn chiếm không gian ban đầu. <code>position: absolute</code> bị tách hoàn toàn khỏi luồng tài liệu và định vị theo cha gần nhất có position khác static.</p>
+                <p><strong>1. Sự khác biệt cốt lõi:</strong></p>
+                <ul>
+                    <li><code>position: relative</code> (Định vị tương đối): Phần tử được dịch chuyển dựa theo vị trí gốc ban đầu của chính nó thông qua các thuộc tính <code>top, right, bottom, left</code>. Điều quan trọng là nó <strong>vẫn chiếm diện tích và giữ nguyên khoảng trống ban đầu</strong> trên layout, không làm ảnh hưởng đến vị trí các phần tử xung quanh.</li>
+                    <li><code>position: absolute</code> (Định vị tuyệt đối): Phần tử bị <strong>tách hoàn toàn khỏi luồng tài liệu thông thường</strong> (normal flow) và không còn chiếm bất kỳ diện tích nào trên trang. Nó sẽ được định vị dựa theo phần tử cha gần nhất có thuộc tính <code>position</code> khác <code>static</code> (thường là thẻ cha được gán <code>position: relative</code>).</li>
+                </ul>
+                <p><strong>2. Tình huống xử lý Responsive:</strong> Kỹ thuật này thường dùng trong mô hình "Cha relative - Con absolute". Ví dụ thực tế là khung thẻ sản phẩm (Product Card). Thẻ cha bao ngoài đặt là <code>relative</code>, bên trong có một chiếc nhãn khuyến mãi "Giảm 50%" đặt là <code>absolute</code> với thuộc tính <code>top: 10px; right: 10px;</code>. Khi co giãn màn hình điện thoại hay máy tính, chiếc nhãn này luôn bám dính chắc chắn ở góc trên bên phải của khung sản phẩm mà không bị chạy lung tung.</p>
+                <p><strong>3. Ảnh hưởng khi Deploy lên môi trường thực tế:</strong> Nếu người lập trình lạm dụng thuộc tính <code>absolute</code> để cố định giao diện bằng các thông số pixel cứng (ví dụ: `left: 500px`), khi deploy lên GitHub và mở bằng điện thoại, giao diện sẽ bị vỡ nát, các khối chữ đè lên nhau do kích thước màn hình di động nhỏ hơn nhiều so với màn hình máy tính lúc thiết kế.</p>
             </div>
         </section>
 
         <section class="theory-section">
-            <h2>Câu 2 (10 điểm): Quy trình Đăng ký Domain, Hosting và Bảo mật</h2>
+            <h2>Câu 2 (10 điểm): Quy trình Đăng ký Domain, Hosting và Bảo mật tên miền</h2>
             <div class="answer-content">
-                <p><strong>Vai trò DNS:</strong> DNS hoạt động giống như một danh bạ Internet, biên dịch tên miền (chữ) sang địa chỉ IP (số) để máy tính kết nối.</p>
+                <p><strong>1. Quy trình cấu hình kết nối:</strong> Sau khi mua tên miền (Domain) tại nhà cung cấp và thiết lập mã nguồn tĩnh trên một Hosting (như GitHub Pages hay Netlify), ta cần truy cập vào trang quản lý cấu hình tên miền để trỏ các bản ghi (Records) như bản ghi <code>A Record</code> về địa chỉ IP của server, hoặc tạo bản ghi <code>CNAME</code> dẫn về liên kết mặc định của Hosting.</p>
+                <p><strong>2. Vai trò của hệ thống DNS:</strong> DNS (Domain Name System) đóng vai trò giống như một "danh bạ điện thoại" khổng lồ của mạng Internet. Nó có nhiệm vụ biên dịch những cái tên miền dạng chữ dễ nhớ mà con người hay gõ (như <code>google.com</code>, <code>github.com</code>) thành những dãy địa chỉ IP dạng số khô khan (như `192.30.252.153`) để các máy tính và router có thể hiểu và tìm thấy nhau.</p>
+                <p><strong>3. Các công cụ Deploy tĩnh tự động phổ biến:</strong> Hai công cụ hàng đầu hiện nay là <strong>GitHub Pages</strong> và <strong>Netlify</strong>. Lợi ích lớn nhất của chúng là hỗ trợ CD (Continuous Deployment) - tự động build lại giao diện ngay khi push code mới lên Git, hoàn toàn miễn phí và không cần cấu hình server phức tạp.</p>
+                <p><strong>4. Rủi ro bảo mật liên quan:</strong> Nếu cấu hình sai các bản ghi DNS, website có thể bị dính tấn công chiếm quyền điều hướng (DNS Hijacking), đẩy người dùng sang trang web giả mạo. Ngoài ra, nếu không kích hoạt chứng chỉ bảo mật <strong>SSL/TLS (HTTPS)</strong>, toàn bộ thông tin người dùng gửi lên trang web sẽ bị truyền đi dưới dạng văn bản thuần, dễ dàng bị hacker đánh cắp giữa đường.</p>
+            </div>
+        </section>
+
+        <section class="theory-section">
+            <h2>Câu 3 (10 điểm): So sánh các từ khóa var, let, const và Phương pháp Debug JavaScript</h2>
+            <div class="answer-content">
+                <p><strong>1. So sánh chi tiết thuộc tính:</strong></p>
+                <ul>
+                    <li><strong>Scope (Phạm vi):</strong> <code>var</code> có phạm vi hàm (Function-scope), nghĩa là biến tồn tại trong toàn bộ hàm chứa nó. Trong khi đó, <code>let</code> và <code>const</code> có phạm vi khối (Block-scope), biến chỉ tồn tại bên trong cặp dấu ngoặc nhọn <code>{ }</code> (như trong lệnh <code>if</code>, vòng lặp <code>for</code>).</li>
+                    <li><strong>Hoisting (Cơ chế đưa lên đầu):</strong> Cả 3 từ khóa đều bị mang lên đầu phạm vi khi biên dịch. Tuy nhiên, <code>var</code> sẽ tự động được khởi tạo giá trị ban đầu là <code>undefined</code> nên gọi trước khi khai báo không bị lỗi crash. Ngược lại, <code>let</code> và <code>const</code> rơi vào "Vùng chết tạm thời" (Temporal Dead Zone - TDZ), nếu cố tình truy cập trước khi khai báo sẽ lập tức gây lỗi sập ứng dụng.</li>
+                </ul>
+                <p><strong>2. Ví dụ về lỗi vòng lặp khi sử dụng từ khóa cũ 'var':</strong></p>
+<pre style="background: #edf2f7; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 14px; margin: 10px 0; overflow-x: auto;">
+for (var i = 0; i &lt; 3; i++) {
+    setTimeout(() => {
+        console.log(i); // Kết quả in ra lỗi sau 1 giây: 3, 3, 3 (Do var dùng chung ô nhớ)
+    }, 1000);
+}
+
+// CÁCH SỬA: Thay thế 'var' bằng 'let' để tạo phạm vi khối nhớ độc lập cho mỗi vòng lặp
+for (let i = 0; i &lt; 3; i++) {
+    setTimeout(() => {
+        console.log(i); // Kết quả in ra đúng mong muốn: 0, 1, 2
+    }, 1000);
+}</pre>
+                <p><strong>3. Quy trình Debug bằng công cụ Chrome DevTools:</strong> Bước 1: Mở trang web trên trình duyệt Chrome, bấm phím F12 và chuyển sang tab <strong>Sources</strong>. Bước 2: Tìm file JavaScript cần kiểm tra trong cây thư mục bên trái. Bước 3: Click chuột trực tiếp vào số dòng lệnh muốn kiểm tra để đặt điểm dừng (Breakpoint). Bước 4: Tải lại trang (F5), trình duyệt sẽ dừng ngay tại dòng đó, cho phép ta theo dõi giá trị thay đổi của từng biến ở cột Scope bên phải.</p>
+            </div>
+        </section>
+
+        <section class="theory-section">
+            <h2>Câu 4 (10 điểm): Định nghĩa Khái niệm và Lợi ích tối ưu của Event Delegation</h2>
+            <div class="answer-content">
+                <p><strong>1. Giải thích khái niệm:</strong> Ủy quyền sự kiện (Event Delegation) là một kỹ thuật lập trình nâng cao tận dụng cơ chế Nổi bọt của sự kiện (Event Bubbling) trong cấu trúc DOM. Thay vì gán hàng tá bộ lắng nghe sự kiện (EventListener) vào từng phần tử con một cách thủ công, ta chỉ cần gắn **một bộ lắng nghe duy nhất vào phần tử cha** bao bọc bên ngoài để quản lý tập trung.</p>
+                <p><strong>2. Đoạn mã minh họa áp dụng cho danh sách động (Dynamic List):</strong></p>
+<pre style="background: #edf2f7; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 14px; margin: 10px 0; overflow-x: auto;">
+// Gắn sự kiện click duy nhất vào thẻ cha có id là 'product-list'
+document.getElementById('product-list').addEventListener('click', function(event) {
+    // Kiểm tra xem phần tử thực tế được bấm trúng (target) có phải là phần tử con mong muốn không
+    if (event.target && event.target.matches('.product-item')) {
+        console.log("Hệ thống ghi nhận bạn đã click vào: ", event.target.textContent);
+    }
+});</pre>
+                <p><strong>3. Lợi ích tối ưu hiệu năng:</strong> Biện pháp này giúp tiết kiệm tài nguyên bộ nhớ RAM tối đa cho trình duyệt vì số lượng Event Listener được giảm xuống tối thiểu. Đồng thời, nó giải quyết triệt để bài toán danh sách động: Khi ta thêm mới hoặc xóa bỏ các thẻ sản phẩm con bằng JavaScript, ta hoàn toàn không cần phải mất công viết lại code gán sự kiện cho các thẻ mới đó nữa.</p>
             </div>
         </section>
     </main>
